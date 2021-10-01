@@ -1,0 +1,66 @@
+<div class="form-container">
+  <div class="form-container__reactive">
+    <div class="form-container__title">
+      Reactive form
+    </div>
+
+    <form [formGroup]="reactiveForm" (ngSubmit)="handleSubmit()">
+      <div class="form-fields">
+        <mat-form-field appearance="fill">
+          <mat-label>Enter your First Name</mat-label>
+          <input matInput placeholder="pat@example.com" formControlName="firstName" required>
+          <mat-error *ngIf="reactiveForm.controls.firstName.touched && reactiveForm.controls.firstName.invalid">
+            First Name requred!
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Enter your Last Name</mat-label>
+          <input matInput placeholder="pat@example.com" formControlName="lastName" required>
+          <mat-error *ngIf="reactiveForm.controls.lastName.touched && reactiveForm.controls.lastName.invalid">
+            Last Name requred!
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form-field">
+        <mat-form-field appearance="fill" [style.width.%]="100">
+          <mat-label>Enter your Email</mat-label>
+          <input matInput placeholder="pat@example.com" formControlName="email" required>
+          <mat-error>{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form-field">
+        <mat-form-field appearance="fill" [style.width.%]="100">
+          <mat-label>Enter your password</mat-label>
+          <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" required>
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="reactiveForm.controls.password.invalid">
+            {{getErrorPassword()}}
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form-field">
+        <mat-form-field appearance="fill" [style.width.%]="100">
+          <mat-label>Choose a date</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="dateOfBirth">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error *ngIf="reactiveForm.controls.dateOfBirth.touched && reactiveForm.controls.dateOfBirth.invalid">
+            Date Of Birth requred!
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="btn-send">
+        <button [disabled]="reactiveForm.invalid" type="submit" mat-raised-button color="primary">Send</button>
+      </div>
+    </form>
+  </div>
+
+</div>
